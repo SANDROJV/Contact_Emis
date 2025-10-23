@@ -1,35 +1,42 @@
 <section class="org-filter">
-  <button *ngFor="let org of orgs" class="btn">
-    <img
-      [src]="'assets/' + org.logo"
-      alt="Organization Logo"
-    />
+  <button
+    *ngFor="let org of orgs"
+    class="btn"
+    [class.active]="activeOrgId === org.id"
+    [title]="org.name"
+    (click)="filterWorkersByOrg(org.id)"
+  >
+    <img [src]="'assets/' + org.logo" [alt]="org.name" />
   </button>
 </section>
 
 <h1 class="title">ერთიანი სატელეფონო სისტემა</h1>
 
 <section class="search-form">
-  <form action="" method="post">
+  <div class="input-group">
     <input
       type="text"
       name="search"
-      placeholder="Search..."
+      placeholder="მოძებნეთ თანამშრომელი..."
       maxlength="100"
-      class="navSearch"
-      required
+      [(ngModel)]="searchKeyword"
+      (input)="applyFilters()"
     />
-    <button type="submit" class="fas fa-search" name="search_btn"></button>
-  </form>
+    <i class="fas fa-search search-icon"></i>
+  </div>
 </section>
 
 <section class="workers">
   <h2 class="subtitle">თანამშრომლები</h2>
   <div class="box-container workers-container">
     <app-worker-card
-      *ngFor="let worker of workers"
+      *ngFor="let worker of filteredWorkers"
       [worker]="worker"
       [orgs]="orgs"
     ></app-worker-card>
+    <div *ngIf="filteredWorkers.length === 0" class="no-workers-message">
+      <p>ამჟამად ვერ მოიძებნა თანამშრომელი ამ კრიტერიუმით.</p>
+      <button class="btn reset-btn" (click)="resetFilter()">აჩვენე ყველა</button>
+    </div>
   </div>
 </section>

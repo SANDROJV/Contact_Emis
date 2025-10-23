@@ -10,7 +10,7 @@
 }
 
 .org-filter .btn img {
-  width: 40%;
+  width: 3rem;
 }
 .org-filter .btn {
   background-color: transparent;
@@ -20,6 +20,7 @@
   overflow: hidden;
   outline: none;
 }
+
 .btn:hover {
   transform: scale(1.1);
 }
@@ -40,14 +41,14 @@
   display: flex;
   justify-content: space-around;
 }
-.search-form form {
+.search-form .input-group {
   display: flex;
   width: 70vw;
   gap: 1rem;
   align-items: center;
 }
 
-.search-form form input {
+.search-form .input-group input {
   width: 100%;
   border-radius: 1.5rem;
   outline: none;
@@ -57,14 +58,10 @@
   padding: 1rem;
 }
 
-.search-form form button {
-  height: 3.5rem;
-  background-color: var(--main-color);
+.search-form .input-group i {
+  font-size: 2rem;
+  color: var(--main-color);
   cursor: pointer;
-  color: white;
-  border-radius: 1rem;
-  width: 4rem;
-  text-align: center;
 }
 
 .workers .subtitle {
@@ -78,4 +75,23 @@
   gap: 2rem;
   justify-content: center;
   align-items: flex-start;
+}
+
+.workers .box-container .reset-btn {
+  height: 3rem;
+  background-color: var(--main-color);
+  cursor: pointer;
+  color: white;
+  border-radius: 1rem;
+  width: max-content;
+  padding-inline: 0.5rem;
+}
+
+.no-workers-message{
+  display: flex;
+  width: max-content;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  font-size: small;
 }

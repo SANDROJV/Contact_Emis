@@ -5,7 +5,8 @@
 /* Variables */
 :root {
   /* Color Variables */
-  --main-color: #006cc5;
+  --main-color: #190fa7;
+  --second-color: #46038d;
   --black: #161616;
   --white: #f2f2f2;
   --gray: #777;
@@ -14,6 +15,25 @@
   --box-shadow: #c5c5c5;
   --box-shadow-Del: #fff;
 }
+
+/* .fadeBg {
+  background: var(--main-color);
+  background: -webkit-linear-gradient(to right, var(--second-color), var(--main-color));
+  background: linear-gradient(to right, var(--second-color), var(--main-color));
+  background-size: 100%;
+}
+
+.fadeText {
+  background: var(--main-color);
+  background: -webkit-linear-gradient(to right, var(--second-color), var(--main-color));
+  background: linear-gradient(to right, var(--second-color), var(--main-color));
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -mo-text-fill-color: transparent;
+} */
+
 /* General CSS */
 * {
   margin: 0;
@@ -48,7 +68,6 @@ section {
 }
 
 /*Scroll Bar  CSS*/
-
 ::-webkit-scrollbar {
   width: 10px;
 }

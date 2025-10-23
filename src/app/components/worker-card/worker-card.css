@@ -38,4 +38,6 @@
   margin-block: 5px;
   display: grid;
   gap: 0.5rem;
+  text-align: left;
+  font-size: small;
 }

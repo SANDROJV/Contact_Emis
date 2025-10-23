@@ -12,7 +12,6 @@ export class WorkerCard implements OnInit {
   public organizationName: string = 'Organization';
   public organizationLogo: string = 'Organization';
 
-
   ngOnInit(): void {
     this.organizationName = this.getOrganizationName(this.worker.org_id);
     this.organizationLogo = this.getOrganizationLogo(this.worker.org_id);
@@ -20,14 +19,10 @@ export class WorkerCard implements OnInit {
 
   getOrganizationName(workerId: number | string): string {
     const organization = this.orgs.find((org) => org.id == workerId);
-    console.log(organization);
-
     return organization ? organization.name : 'Unknown Organization';
   }
   getOrganizationLogo(workerId: number | string): string {
     const organization = this.orgs.find((org) => org.id == workerId);
-    console.log(organization);
-
     return organization ? organization.logo : 'Unknown Organization';
   }
 
