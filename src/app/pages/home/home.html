@@ -31,13 +31,16 @@
   <h2 class="subtitle">თანამშრომლები</h2>
   <div class="box-container workers-container">
     <app-worker-card
-      *ngFor="let worker of filteredWorkers"
+      *ngFor="let worker of visibleWorkers"
       [worker]="worker"
       [orgs]="orgs"
     ></app-worker-card>
     <div *ngIf="filteredWorkers.length === 0" class="no-workers-message">
       <p>ამჟამად ვერ მოიძებნა თანამშრომელი ამ კრიტერიუმით.</p>
       <button class="btn reset-btn" (click)="resetFilter()">აჩვენე ყველა</button>
+    </div>
+    <div class="show-more-wrap" *ngIf="canShowMore()">
+      <button class="btn show-more-btn fa-solid fa-angle-down" (click)="showMore()"></button>
     </div>
   </div>
 </section>

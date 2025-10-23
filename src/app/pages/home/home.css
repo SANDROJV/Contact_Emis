@@ -18,14 +18,17 @@
   cursor: pointer;
   overflow: hidden;
   outline: none;
-  display: flex;
+  display: grid;
+  grid-template-columns: 20% 80%;
   padding: 1rem 3rem;
   justify-content: space-around;
   align-items: center;
+  transition: transform 0.3s ease-in-out;
 }
 
 .orgBtn:hover {
   transform: scale(1.02);
+  box-shadow: 1rem 1rem 2rem var(--box-shadow);
 }
 
 .orgBtn:active {
@@ -44,6 +47,7 @@
   display: flex;
   justify-content: space-around;
 }
+
 .search-form .input-group {
   display: flex;
   width: 70vw;
@@ -97,4 +101,20 @@
   justify-content: center;
   align-items: center;
   font-size: small;
+}
+.show-more-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  margin-top: 16px;
+}
+
+.show-more-wrap .show-more-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 6px;
 }
