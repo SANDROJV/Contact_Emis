@@ -14,19 +14,21 @@
   justify-content: space-between;
 }
 
+.header .flex .icons > *,
 .header .flex .fa-address-book,
 .header .flex .logo {
-  color: var(--black);
-  margin-inline: 4%;
   font-size: 2.5rem;
-  color: var(--white);
+  cursor: pointer;
+  color: white;
+}
+
+.header .flex .fa-address-book,
+.header .flex .logo {
+  margin-inline: 4%;
 }
 
 .header .flex .icons > * {
   margin-left: 1rem;
-  font-size: 2.5rem;
-  cursor: pointer;
-  color: var(--white);
 }
 
 #menu-btn {

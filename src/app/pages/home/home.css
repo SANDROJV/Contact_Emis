@@ -1,32 +1,35 @@
 .org-filter {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
   gap: 2rem;
   justify-content: center;
-  align-items: flex-start;
-  background-color: transparent;
-  color: transparent;
   transition: transform 0.3s ease-in-out;
 }
 
-.org-filter .btn img {
-  width: 3rem;
+.org-filter .orgBtn img {
+  width: 5rem;
 }
-.org-filter .btn {
-  background-color: transparent;
+
+.org-filter .orgBtn {
+  background-color: var(--white);
   background-repeat: no-repeat;
   border: none;
+  border-radius: 1rem;
   cursor: pointer;
   overflow: hidden;
   outline: none;
+  display: flex;
+  padding: 1rem 3rem;
+  justify-content: space-around;
+  align-items: center;
 }
 
-.btn:hover {
-  transform: scale(1.1);
+.orgBtn:hover {
+  transform: scale(1.02);
 }
 
-.btn:active {
-  transform: scale(0.95);
+.orgBtn:active {
+  transform: scale(0.98);
 }
 
 .title {
@@ -71,7 +74,7 @@
 
 .workers .box-container {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   gap: 2rem;
   justify-content: center;
   align-items: flex-start;
@@ -87,7 +90,7 @@
   padding-inline: 0.5rem;
 }
 
-.no-workers-message{
+.no-workers-message {
   display: flex;
   width: max-content;
   gap: 2rem;

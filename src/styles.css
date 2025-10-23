@@ -10,29 +10,11 @@
   --black: #161616;
   --white: #f2f2f2;
   --gray: #777;
-  --bg: #e2e2e2;
+  --bg: #a0a0a0;
   --light-bg: #e7e7e7;
   --box-shadow: #c5c5c5;
   --box-shadow-Del: #fff;
 }
-
-/* .fadeBg {
-  background: var(--main-color);
-  background: -webkit-linear-gradient(to right, var(--second-color), var(--main-color));
-  background: linear-gradient(to right, var(--second-color), var(--main-color));
-  background-size: 100%;
-}
-
-.fadeText {
-  background: var(--main-color);
-  background: -webkit-linear-gradient(to right, var(--second-color), var(--main-color));
-  background: linear-gradient(to right, var(--second-color), var(--main-color));
-  background-size: 100%;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -mo-text-fill-color: transparent;
-} */
 
 /* General CSS */
 * {
@@ -50,7 +32,7 @@ html {
 }
 
 body {
-  background-color: var(--bg);
+  background-color: var(--light-bg);
   height: 100%;
   width: 100%;
   min-height: 100vh;
@@ -89,4 +71,19 @@ section {
 .errorBox {
   margin: auto;
   margin-block: 3rem;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+li,
+span,
+small,
+i {
+  color: var(--black);
 }

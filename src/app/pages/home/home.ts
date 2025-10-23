@@ -14,6 +14,7 @@ export class Home implements OnInit {
   public workers: any[] = [];
   public filteredWorkers: any[] = [];
   public orgs: any[] = [];
+
   public organizationLogo: string = 'Organization';
   public activeOrgId: number | null = null;
   public searchKeyword: string = '';
@@ -42,10 +43,7 @@ export class Home implements OnInit {
 
     if (this.activeOrgId !== null) {
       workers = workers.filter(
-        (worker) =>
-          worker &&
-          worker.org_id &&
-          Number(worker.org_id) === Number(this.activeOrgId)
+        (worker) => worker && worker.org_id && Number(worker.org_id) === Number(this.activeOrgId)
       );
     }
 
@@ -73,6 +71,7 @@ export class Home implements OnInit {
     this.activeOrgId = this.activeOrgId === orgId ? null : orgId;
     this.applyFilters();
   }
+
   resetFilter(): void {
     this.activeOrgId = null;
     this.searchKeyword = '';

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Theme } from '../../services/theme';
 
 @Component({
   selector: 'app-navbar',
@@ -7,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './navbar.css'
 })
 export class Navbar {
+  constructor(private theme: Theme) {}
 
+  toggleTheme() {
+    this.theme.toggleTheme();
+  }
 }
