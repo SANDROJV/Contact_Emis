@@ -1,0 +1,70 @@
+.org-filter {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 2rem;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: transparent;
+  color: transparent;
+  transition: transform 0.3s ease-in-out;
+}
+
+.btn:hover {
+  transform: scale(1.1);
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
+.title {
+  display: flex;
+  justify-content: space-around;
+  margin-block: 1rem;
+  font-size: x-large;
+}
+
+.search-form {
+  width: 100vw;
+  display: flex;
+  justify-content: space-around;
+}
+.search-form form {
+  display: flex;
+  width: 70vw;
+  gap: 1rem;
+  align-items: center;
+}
+
+.search-form form input {
+  width: 100%;
+  border-radius: 1.5rem;
+  outline: none;
+  border: 1px solid rgba(204, 204, 204, 0.596);
+  background-color: var(--white);
+  color: var(--black);
+  padding: 1rem;
+}
+
+.search-form form button {
+  height: 3.5rem;
+  background-color: var(--main-color);
+  cursor: pointer;
+  color: white;
+  border-radius: 1rem;
+  width: 4rem;
+  text-align: center;
+}
+
+.workers .subtitle {
+  margin-block: 1.5rem;
+  font-size: large;
+}
+
+.workers .box-container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 2rem;
+  justify-content: center;
+  align-items: flex-start;
+}

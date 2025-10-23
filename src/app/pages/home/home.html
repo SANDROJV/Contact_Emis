@@ -1,0 +1,38 @@
+<section class="org-filter">
+  <button class="btn"><img src="" alt="icon"></button>
+  <button class="btn"><img src="" alt="icon"></button>
+  <button class="btn"><img src="" alt="icon"></button>
+  <button class="btn"><img src="" alt="icon"></button>
+  <button class="btn"><img src="" alt="icon"></button>
+  <button class="btn"><img src="" alt="icon"></button>
+  <button class="btn"><img src="" alt="icon"></button>
+  <button class="btn"><img src="" alt="icon"></button>
+  <button class="btn"><img src="" alt="icon"></button>
+  <button class="btn"><img src="" alt="icon"></button>
+  <button class="btn"><img src="" alt="icon"></button>
+  <button class="btn"><img src="" alt="icon"></button>
+
+</section>
+
+<h1 class="title">ერთიანი სატელეფონო სისტემა</h1>
+
+<section class="search-form">
+  <form action="" method="post">
+    <input
+      type="text"
+      name="search"
+      placeholder="Search..."
+      maxlength="100"
+      class="navSearch"
+      required
+    />
+    <button type="submit" class="fas fa-search" name="search_btn"></button>
+  </form>
+</section>
+
+<section class="workers">
+  <h2 class="subtitle">თანამშრომლები</h2>
+  <div class="box-container">
+    <app-worker-card *ngFor="let item of iterations; let i = index"> </app-worker-card>
+  </div>
+</section>

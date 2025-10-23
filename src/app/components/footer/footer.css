@@ -1,0 +1,44 @@
+.footer {
+  background-color: var(--gray);
+  color: var(--white);
+  width: 100%;
+  padding: 3rem 6rem;
+}
+
+.footer .hotline-box {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  font-size: 1rem;
+}
+
+.footer .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.footer .grid .box {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer .grid .box p {
+  font-size: 1.2rem;
+  max-width: 40rem;
+}
+
+.footer .grid .box i {
+  font-size: xx-large;
+  margin-right: 0.75rem;
+  color: var(--main-color);
+}
+
+.footer .credit {
+  text-align: center;
+  padding: 1.5rem 2rem;
+  border-top: 1px solid #f2f2f2;
+  font-size: 1.2rem;
+  color: var(--black);
+}

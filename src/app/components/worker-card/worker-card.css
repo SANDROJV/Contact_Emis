@@ -1,0 +1,30 @@
+.worker-card {
+  display: block;
+  padding: 2rem;
+  border-radius: 1rem;
+  background-color: var(--white);
+  margin-bottom: 2rem;
+  overflow: hidden;
+  height: fit-content;
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.worker-card:hover {
+  transform: scale(1.03);
+  box-shadow: 2rem 2rem 3rem var(--box-shadow);
+}
+
+.worker-card img {
+  width: 100%;
+  height: 20rem;
+  object-fit: contain;
+  margin-bottom: 1.5rem;
+}
+.contact-info {
+  border-top: 1px solid var(--gray);
+  width: 100%;
+  margin-block: 5px;
+  display: grid;
+  gap: .5rem;
+}

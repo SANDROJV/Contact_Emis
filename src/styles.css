@@ -1,1 +1,73 @@
-/* You can add global styles to this file, and also import other style files */
+/* Importing Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+/* Variables */
+:root {
+  /* Color Variables */
+  --main-color: #006cc5;
+  --black: #161616;
+  --white: #f2f2f2;
+  --gray: #777;
+  --bg: #e2e2e2;
+  --light-bg: #e7e7e7;
+  --box-shadow: #c5c5c5;
+  --box-shadow-Del: #fff;
+}
+/* General CSS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  text-decoration: none;
+}
+
+html {
+  overflow-x: hidden;
+  font-size: 62.5%;
+}
+
+body {
+  background-color: var(--bg);
+  height: 100%;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  margin-top: 9vh;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif !important;
+  overflow: auto;
+}
+
+section {
+  padding: 2rem;
+  max-width: 80vw;
+  margin: 0 auto;
+}
+
+/*Scroll Bar  CSS*/
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--white);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--gray);
+  border-radius: 2rem;
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+.errorBox {
+  margin: auto;
+  margin-block: 3rem;
+}
