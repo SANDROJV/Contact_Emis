@@ -1,25 +1,28 @@
-<!-- <div class="worker-card">
-  <img [src]="worker.image || 'assets/default-user.png'" alt="Worker">
-  <div class="info">
-    <h3>{{ worker.full_name }}</h3>
-    <p>{{ worker.department }} — {{ worker.position }}</p>
-    <small>{{ worker.email }}</small>
-  </div>
-</div> -->
 <div class="worker-card">
   <div class="job">
-    <p><img src="../../assets/eqe.png" alt="Icon" />Title</p>
+    <img
+      [src]="'assets/' + organizationLogo"
+      alt="Organization Logo"
+    />
+    <p>
+      {{ organizationName || 'Organization' }}
+    </p>
   </div>
   <div class="person">
-    <img src="../../assets/default.png" alt="Worker" />
+    <img
+      [src]="'assets/' + (worker.image || 'default.png')"
+      alt="Worker Photo"
+      (error)="onImgError($event)"
+    />
+
     <div class="info">
-      <h3>Placeholder-name</h3>
-      <p>placeholder departament</p>
-      <p>placeholder position</p>
+      <h3>{{ worker.full_name }}</h3>
+      <p>{{ worker.department }}</p>
+      <p>{{ worker.position }}</p>
       <div class="contact-info">
-        <small><i class="fa-solid fa-envelope"></i> placeholder email</small>
-        <small><i class="fa-solid fa-phone"></i> placeholder phone</small>
-        <small><i class="fa-regular fa-calendar-days"></i> placeholder year</small>
+        <small><i class="fa-solid fa-envelope"></i> {{ worker.email }}</small>
+        <small><i class="fa-solid fa-phone"></i> {{ worker.phone }}</small>
+        <small><i class="fa-regular fa-calendar-days"></i> {{ worker.employment_year }}</small>
       </div>
     </div>
   </div>

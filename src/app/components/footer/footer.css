@@ -11,6 +11,10 @@
   font-size: 1rem;
 }
 
+.footer .hotline-box img{
+  width: 10%  ;
+}
+
 .footer .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));

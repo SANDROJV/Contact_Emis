@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class Api {
-  private baseUrl = 'http://localhost/contact_emis/contact_emis_backend';
+  private baseUrl = 'http://localhost/contact_emis/backend';
 
   constructor(private http: HttpClient) {}
 

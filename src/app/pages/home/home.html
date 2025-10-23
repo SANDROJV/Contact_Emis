@@ -1,17 +1,10 @@
 <section class="org-filter">
-  <button class="btn"><img src="" alt="icon"></button>
-  <button class="btn"><img src="" alt="icon"></button>
-  <button class="btn"><img src="" alt="icon"></button>
-  <button class="btn"><img src="" alt="icon"></button>
-  <button class="btn"><img src="" alt="icon"></button>
-  <button class="btn"><img src="" alt="icon"></button>
-  <button class="btn"><img src="" alt="icon"></button>
-  <button class="btn"><img src="" alt="icon"></button>
-  <button class="btn"><img src="" alt="icon"></button>
-  <button class="btn"><img src="" alt="icon"></button>
-  <button class="btn"><img src="" alt="icon"></button>
-  <button class="btn"><img src="" alt="icon"></button>
-
+  <button *ngFor="let org of orgs" class="btn">
+    <img
+      [src]="'assets/' + org.logo"
+      alt="Organization Logo"
+    />
+  </button>
 </section>
 
 <h1 class="title">ერთიანი სატელეფონო სისტემა</h1>
@@ -32,7 +25,11 @@
 
 <section class="workers">
   <h2 class="subtitle">თანამშრომლები</h2>
-  <div class="box-container">
-    <app-worker-card *ngFor="let item of iterations; let i = index"> </app-worker-card>
+  <div class="box-container workers-container">
+    <app-worker-card
+      *ngFor="let worker of workers"
+      [worker]="worker"
+      [orgs]="orgs"
+    ></app-worker-card>
   </div>
 </section>

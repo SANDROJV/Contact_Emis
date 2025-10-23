@@ -9,6 +9,17 @@
   transition: transform 0.3s ease-in-out;
 }
 
+.org-filter .btn img {
+  width: 40%;
+}
+.org-filter .btn {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+}
 .btn:hover {
   transform: scale(1.1);
 }
