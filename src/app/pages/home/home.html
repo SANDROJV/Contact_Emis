@@ -14,33 +14,62 @@
   </div>
 </section>
 
-<section class="org-filter">
+<section class="org-filter" id="bigOrgs" *ngIf="!showAll">
+  <div class="bigOrgWrapper" *ngFor="let org of orgs" [class.active]="activeOrgId === org.id">
+    <button
+      class="bigOrgBtn"
+      [class.active]="activeOrgId === org.id"
+      [title]="org.name"
+      (click)="filterWorkersByBigOrg(org.id)"
+    >
+      <img [src]="'assets/' + org.logo" [alt]="org.name" />
+      <p>{{ org.name }}</p>
+    </button>
+
+    <div class="open-close-container box-container" *ngIf="activeOrgId === org.id">
+      <app-worker-card
+        *ngFor="let worker of filteredWorkers"
+        [worker]="worker"
+        [orgs]="orgs"
+        class="worker-card"
+        #workerCard
+      ></app-worker-card>
+      <div *ngIf="filteredWorkers.length === 0" class="no-workers-message">
+        <p>ამჟამად ვერ მოიძებნა თანამშრომელი ამ კრიტერიუმით.</p>
+        <button class="btn reset-btn" (click)="resetFilter()">ძიების გასუფთავება</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="org-filter" id="smallOrgs" *ngIf="showAll">
   <button
     *ngFor="let org of orgs"
-    class="orgBtn"
+    class="smallOrgBtn"
     [class.active]="activeOrgId === org.id"
     [title]="org.name"
     (click)="filterWorkersByOrg(org.id)"
   >
     <img [src]="'assets/' + org.logo" [alt]="org.name" />
-    <p>{{ org.name }}</p>
   </button>
 </section>
 
-<section class="workers">
+<section class="workers" [hidden]="isOrgOpen" [class.expanded]="showAll">
   <h2 class="subtitle">თანამშრომლები</h2>
-  <div class="box-container workers-container">
+  <div class="box-container workers-container" #workerContainer>
     <app-worker-card
-      *ngFor="let worker of visibleWorkers"
+      *ngFor="let worker of filteredWorkers"
       [worker]="worker"
       [orgs]="orgs"
+      class="worker-card"
+      #workerCard
     ></app-worker-card>
     <div *ngIf="filteredWorkers.length === 0" class="no-workers-message">
       <p>ამჟამად ვერ მოიძებნა თანამშრომელი ამ კრიტერიუმით.</p>
-      <button class="btn reset-btn" (click)="resetFilter()">აჩვენე ყველა</button>
+      <button class="btn reset-btn" (click)="resetFilter()">ძიების გასუფთავება</button>
     </div>
-    <div class="show-more-wrap" *ngIf="canShowMore()">
-      <button class="btn show-more-btn fa-solid fa-angle-down" (click)="showMore()"></button>
+    <div class="fade-overlay" *ngIf="showFade">
+      <button class="btn show-btn fa-solid fa-angle-down" (click)="toggleShowAll()"></button>
     </div>
   </div>
 </section>

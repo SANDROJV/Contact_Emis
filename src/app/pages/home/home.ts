@@ -1,4 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  HostListener,
+  ViewChild,
+  ViewChildren,
+  QueryList,
+  ElementRef,
+} from '@angular/core';
 import { WorkerCard } from '../../components/worker-card/worker-card';
 import { CommonModule } from '@angular/common';
 import { Api } from '../../services/api';
@@ -21,8 +29,15 @@ export class Home implements OnInit {
   public searchKeyword: string = '';
   public loading: boolean = true;
 
-  public visibleCount: number = 10;
-  public visibleWorkers: any[] = [];
+  public showAll: boolean = false;
+  public workersPerRow: number = 0;
+  public maxVisible: number = 0;
+
+  @ViewChild('workerContainer') workerContainer!: ElementRef;
+  @ViewChildren('workerCard', { read: ElementRef }) workerCards!: QueryList<ElementRef>;
+  @ViewChild('workers') workersSection!: ElementRef;
+
+  isOrgOpen = false;
 
   constructor(private api: Api) {}
 
@@ -40,6 +55,11 @@ export class Home implements OnInit {
     } finally {
       this.loading = false;
     }
+  }
+
+  @HostListener('window:resize')
+  onResize() {
+    this.calculateVisibleWorkers();
   }
 
   applyFilters(): void {
@@ -70,28 +90,52 @@ export class Home implements OnInit {
     } else {
       this.filteredWorkers = workers;
     }
-    this.updateVisibleWorkers();
   }
 
-  updateVisibleWorkers(): void {
-    if (this.visibleCount > this.filteredWorkers.length) {
-      this.visibleCount = this.filteredWorkers.length;
-    }
-    this.visibleWorkers = this.filteredWorkers.slice(0, this.visibleCount);
+  calculateVisibleWorkers(): void {
+    setTimeout(() => {
+      const container = this.workerContainer?.nativeElement;
+      const firstCardRef = this.workerCards && this.workerCards.first;
+      const card = firstCardRef?.nativeElement;
+
+      if (!container || !card) return;
+      const containerWidth = container.offsetWidth;
+      const cardWidth = card.offsetWidth;
+      const cardHeight = card.offsetHeight;
+
+      if (!containerWidth || !cardWidth || !cardHeight) return;
+
+      this.workersPerRow = Math.max(1, Math.floor(containerWidth / cardWidth));
+
+      const totalRowsNeeded = Math.ceil(this.filteredWorkers.length / this.workersPerRow);
+      const visibleRows = Math.min(totalRowsNeeded, 2);
+
+      this.maxVisible = this.workersPerRow * visibleRows;
+    }, 10);
   }
 
-  showMore(): void {
-    this.visibleCount = Math.min(this.visibleCount + 12, this.filteredWorkers.length);
-    this.updateVisibleWorkers();
+  get visibleWorkers(): any[] {
+    return this.showAll || this.filteredWorkers.length <= this.maxVisible
+      ? this.filteredWorkers
+      : this.filteredWorkers.slice(0, this.maxVisible);
   }
 
-  canShowMore(): boolean {
-    return this.filteredWorkers.length > this.visibleCount;
+  get showFade(): boolean {
+    return !this.showAll && this.filteredWorkers.length > this.maxVisible;
+  }
+
+  toggleShowAll(): void {
+    this.showAll = !this.showAll;
   }
 
   filterWorkersByOrg(orgId: number): void {
     this.activeOrgId = this.activeOrgId === orgId ? null : orgId;
     this.applyFilters();
+  }
+
+  filterWorkersByBigOrg(orgId: number): void {
+    this.isOrgOpen = this.isOrgOpen === false ? true : false;
+    this.filterWorkersByOrg(orgId);
   }
 
   resetFilter(): void {

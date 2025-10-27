@@ -8,17 +8,17 @@
 
 .footer .hotline-box {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
   font-size: 1rem;
 }
 
 .footer .hotline-box img {
-  width: 10%;
+  width: 3rem;
 }
 
 .footer .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
   gap: 1.5rem;
   align-items: center;
 }
@@ -31,7 +31,6 @@
 
 .footer .grid .box p {
   font-size: 1.2rem;
-  max-width: 40rem;
 }
 
 .footer .grid .box i {
