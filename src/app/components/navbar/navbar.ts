@@ -1,16 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Theme } from '../../services/theme';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './navbar.html',
-  styleUrl: './navbar.css'
+  styleUrl: './navbar.css',
 })
 export class Navbar {
-  constructor(private theme: Theme) {}
+  protected readonly theme = inject(Theme);
 
-  toggleTheme() {
+  protected toggleTheme() {
     this.theme.toggleTheme();
   }
 }

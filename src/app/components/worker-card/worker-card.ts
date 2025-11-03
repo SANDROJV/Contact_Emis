@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, input } from '@angular/core';
 
 @Component({
   selector: 'app-worker-card',
@@ -7,22 +7,23 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrl: './worker-card.css',
 })
 export class WorkerCard implements OnInit {
-  @Input() worker: any;
-  @Input() orgs: any[] = [];
+  readonly worker = input<any>();
+  readonly orgs = input<any[]>([]);
   public organizationName: string = 'Organization';
   public organizationLogo: string = 'Organization';
 
   ngOnInit(): void {
-    this.organizationName = this.getOrganizationName(this.worker.org_id);
-    this.organizationLogo = this.getOrganizationLogo(this.worker.org_id);
+    this.organizationName = this.getOrganizationName(this.worker().org_id);
+    this.organizationLogo = this.getOrganizationLogo(this.worker().org_id);
   }
 
   getOrganizationName(workerId: number | string): string {
-    const organization = this.orgs.find((org) => org.id == workerId);
+    const organization = this.orgs().find((org) => org.id == workerId);
     return organization ? organization.name : 'Unknown Organization';
   }
+  
   getOrganizationLogo(workerId: number | string): string {
-    const organization = this.orgs.find((org) => org.id == workerId);
+    const organization = this.orgs().find((org) => org.id == workerId);
     return organization ? organization.logo : 'Unknown Organization';
   }
 

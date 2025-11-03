@@ -1,24 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { apiBaseUrl } from '../../environment/environment';
+import { Organization } from '../../models/org.model';
+import { Worker } from '../../models/worker.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Api {
-  private baseUrl = 'http://localhost/contact_emis/backend';
+  private baseUrl = apiBaseUrl;
 
   constructor(private http: HttpClient) {}
 
-  getOrganizations(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/get_organizations.php`);
+  getOrganizations(){
+    return this.http.get<Organization[]>(`${this.baseUrl}/get_organizations.php`);
   }
 
-  getWorkers(orgId?: number): Observable<any> {
-    if (orgId) {
-      return this.http.get(`${this.baseUrl}/get_workers.php?org_id=${orgId}`);
-    } else {
-      return this.http.get(`${this.baseUrl}/get_workers.php`);
-    }
+  getWorkers(orgId?: number) {
+    return this.http.get<Worker[]>(`${this.baseUrl}/get_workers.php`, {
+      params: {
+        org_Id: orgId ?? ''
+      }
+    });
   }
 }

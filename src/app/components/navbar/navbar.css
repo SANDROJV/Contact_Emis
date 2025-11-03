@@ -4,33 +4,26 @@
   left: 0;
   right: 0;
   z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 8rem;
   background-color: var(--main-color);
   font-family: 'Rajdhani', sans-serif;
 }
 
-.header .flex {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.header .flex .icons > *,
-.header .flex .fa-address-book,
-.header .flex .logo {
+.header #theme-btn .fa-circle-half-stroke {
   font-size: 2.5rem;
   cursor: pointer;
   color: white;
 }
 
-.header .flex .fa-address-book,
-.header .flex .logo {
-  margin-inline: 4%;
-}
-
-.header .flex .icons > * {
+.header #theme-btn {
+  background-color: transparent;
   margin-left: 1rem;
 }
 
-#menu-btn {
-  display: none;
+.header a img {
+  width: 20rem;
+  margin-inline: 4%;
 }

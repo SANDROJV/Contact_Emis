@@ -1,8 +1,6 @@
 <header class="header">
-  <section class="flex">
-    <a class="logo" class="fa-solid fa-address-book"></a>
-    <div class="icons">
-      <a id="theme-btn" class="fa-solid fa-circle-half-stroke" (click)="toggleTheme()"></a>
-    </div>
-  </section>
+  <a routerLink="/" title="Home"><img src="../../../assets/logo.png" alt="Logo" /></a>
+  <button id="theme-btn" (click)="toggleTheme()" type="button" title="Change Theme">
+    <i class="fa-solid fa-circle-half-stroke"> </i>
+  </button>
 </header>

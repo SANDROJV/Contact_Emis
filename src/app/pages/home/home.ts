@@ -1,80 +1,53 @@
 import {
   Component,
-  OnInit,
   HostListener,
-  ViewChild,
-  ViewChildren,
-  QueryList,
   ElementRef,
+  ChangeDetectionStrategy,
+  viewChild,
+  viewChildren,
+  computed,
+  signal,
+  inject,
 } from '@angular/core';
 import { WorkerCard } from '../../components/worker-card/worker-card';
-import { CommonModule } from '@angular/common';
 import { Api } from '../../services/api';
 import { FormsModule } from '@angular/forms';
-import { firstValueFrom } from 'rxjs';
+import { rxResource } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-home',
-  imports: [WorkerCard, CommonModule, FormsModule],
+  imports: [WorkerCard, FormsModule],
   templateUrl: './home.html',
   styleUrl: './home.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Home implements OnInit {
-  public workers: any[] = [];
-  public filteredWorkers: any[] = [];
-  public orgs: any[] = [];
+export class Home {
+  protected readonly workers = rxResource({
+    stream: () => this.api.getWorkers(),
+  });
+  protected readonly orgs = rxResource({
+    stream: () => this.api.getOrganizations(),
+  });
+  protected readonly filteredWorkers = computed(() => {
+    const workers = this.workers.value() ?? [];
+    const keyword = this.searchKeyword().toLowerCase().trim();
+    const activeOrgId = this.activeOrgId();
+    const activeOrgDep = this.activeOrgDep();
 
-  public organizationLogo: string = 'Organization';
-  public activeOrgId: number | null = null;
-  public searchKeyword: string = '';
-  public loading: boolean = true;
+    return workers.filter((worker) => {
+      if (!worker) return false;
 
-  public showAll: boolean = false;
-  public workersPerRow: number = 0;
-  public maxVisible: number = 0;
+      let matches = true;
 
-  @ViewChild('workerContainer') workerContainer!: ElementRef;
-  @ViewChildren('workerCard', { read: ElementRef }) workerCards!: QueryList<ElementRef>;
-  @ViewChild('workers') workersSection!: ElementRef;
+      if (activeOrgId !== null) {
+        matches = matches && Number(worker.org_id) === Number(activeOrgId);
+      }
 
-  isOrgOpen = false;
+      if (activeOrgDep !== null) {
+        matches = matches && worker.department === activeOrgDep;
+      }
 
-  constructor(private api: Api) {}
-
-  async ngOnInit(): Promise<void> {
-    try {
-      const [workers, orgs] = await Promise.all([
-        firstValueFrom(this.api.getWorkers()),
-        firstValueFrom(this.api.getOrganizations()),
-      ]);
-      this.workers = workers ?? [];
-      this.orgs = orgs ?? [];
-      this.applyFilters();
-    } catch (err) {
-      console.error('Error fetching data:', err);
-    } finally {
-      this.loading = false;
-    }
-  }
-
-  @HostListener('window:resize')
-  onResize() {
-    this.calculateVisibleWorkers();
-  }
-
-  applyFilters(): void {
-    let workers = this.workers;
-    const keyword = this.searchKeyword.toLowerCase().trim();
-
-    if (this.activeOrgId !== null) {
-      workers = workers.filter(
-        (worker) => worker && worker.org_id && Number(worker.org_id) === Number(this.activeOrgId)
-      );
-    }
-
-    if (keyword) {
-      this.filteredWorkers = workers.filter((worker) => {
-        if (!worker) return false;
+      if (keyword) {
         const data = [
           worker.full_name,
           worker.department,
@@ -85,62 +58,95 @@ export class Home implements OnInit {
         ]
           .map((x) => (x ? x.toLowerCase() : ''))
           .join(' ');
-        return data.includes(keyword);
-      });
-    } else {
-      this.filteredWorkers = workers;
-    }
+
+        matches = matches && data.includes(keyword);
+      }
+
+      return matches;
+    });
+  });
+
+  protected readonly activeOrgId = signal<number | null>(null);
+  protected readonly activeOrgDep = signal<string | null>(null);
+
+  protected readonly searchKeyword = signal('');
+
+  protected readonly showAll = signal(false);
+  protected workersPerRow: number = 0;
+  protected maxVisible: number = 0;
+
+  protected readonly workerContainer = viewChild.required('workerContainer', { read: ElementRef });
+  protected readonly workerCards = viewChildren('workerCard', { read: ElementRef });
+
+  protected isOrgOpen = false;
+
+  private api = inject(Api);
+
+  @HostListener('window:resize')
+  protected onResize() {
+    this.calculateVisibleWorkers();
   }
 
-  calculateVisibleWorkers(): void {
-    setTimeout(() => {
-      const container = this.workerContainer?.nativeElement;
-      const firstCardRef = this.workerCards && this.workerCards.first;
-      const card = firstCardRef?.nativeElement;
+  protected calculateVisibleWorkers(): void {
+    const workerCards = this.workerCards();
+    const container = this.workerContainer().nativeElement;
+    const firstCardRef = workerCards && workerCards[0];
+    const card = firstCardRef?.nativeElement;
 
-      if (!container || !card) return;
-      const containerWidth = container.offsetWidth;
-      const cardWidth = card.offsetWidth;
-      const cardHeight = card.offsetHeight;
+    if (!container || !card) return;
+    const containerWidth = container.offsetWidth;
+    const cardWidth = card.offsetWidth;
+    const cardHeight = card.offsetHeight;
 
-      if (!containerWidth || !cardWidth || !cardHeight) return;
+    if (!containerWidth || !cardWidth || !cardHeight) return;
 
-      this.workersPerRow = Math.max(1, Math.floor(containerWidth / cardWidth));
+    this.workersPerRow = Math.max(1, Math.floor(containerWidth / cardWidth));
 
-      const totalRowsNeeded = Math.ceil(this.filteredWorkers.length / this.workersPerRow);
-      const visibleRows = Math.min(totalRowsNeeded, 2);
+    const totalRowsNeeded = Math.ceil(this.filteredWorkers().length / this.workersPerRow);
+    const visibleRows = Math.min(totalRowsNeeded, 2);
 
-      this.maxVisible = this.workersPerRow * visibleRows;
-    }, 10);
+    this.maxVisible = this.workersPerRow * visibleRows;
   }
 
-  get visibleWorkers(): any[] {
-    return this.showAll || this.filteredWorkers.length <= this.maxVisible
-      ? this.filteredWorkers
-      : this.filteredWorkers.slice(0, this.maxVisible);
+  protected readonly activeOrgDepartments = computed(() => {
+  const orgId = this.activeOrgId();
+  const allWorkers = this.workers.value() ?? [];
+
+  if (!orgId) return [];
+
+  const departments = allWorkers
+    .filter((w) => Number(w.org_id) === Number(orgId))
+    .map((w) => w.department)
+    .filter((dep): dep is string => !!dep);
+
+  return Array.from(new Set(departments));
+});
+
+  protected readonly showFade = computed(
+    () => !this.showAll() && this.filteredWorkers().length > this.maxVisible
+  );
+
+  protected toggleShowAll(): void {
+    this.showAll.update((v) => !v);
   }
 
-  get showFade(): boolean {
-    return !this.showAll && this.filteredWorkers.length > this.maxVisible;
+  protected filterWorkersByOrg(orgId: number): void {
+    this.activeOrgDep.set(null)
+    this.activeOrgId.update((current) => (current === orgId ? null : orgId));
   }
 
-  toggleShowAll(): void {
-    this.showAll = !this.showAll;
+  protected filterWorkersByDep(workerDep: string): void {
+    this.activeOrgDep.update((current) => (current === workerDep ? null : workerDep));
   }
 
-  filterWorkersByOrg(orgId: number): void {
-    this.activeOrgId = this.activeOrgId === orgId ? null : orgId;
-    this.applyFilters();
-  }
-
-  filterWorkersByBigOrg(orgId: number): void {
+  protected filterWorkersByBigOrg(orgId: number): void {
     this.isOrgOpen = this.isOrgOpen === false ? true : false;
     this.filterWorkersByOrg(orgId);
   }
 
-  resetFilter(): void {
-    this.activeOrgId = null;
-    this.searchKeyword = '';
-    this.applyFilters();
+  protected resetFilter(): void {
+    this.activeOrgId.set(null);
+    this.activeOrgDep.set(null);
+    this.searchKeyword.set('');
   }
 }

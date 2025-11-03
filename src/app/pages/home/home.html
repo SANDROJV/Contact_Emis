@@ -8,68 +8,91 @@
       placeholder="მოძებნეთ თანამშრომელი..."
       maxlength="100"
       [(ngModel)]="searchKeyword"
-      (input)="applyFilters()"
     />
     <i class="fas fa-search search-icon"></i>
   </div>
 </section>
 
-<section class="org-filter" id="bigOrgs" *ngIf="!showAll">
-  <div class="bigOrgWrapper" *ngFor="let org of orgs" [class.active]="activeOrgId === org.id">
+@if (!showAll()) {
+<section class="org-filter" id="bigOrgs">
+  @for (org of orgs.value(); track org.id){ @let active = activeOrgId() === org.id;
+  <div class="bigOrgWrapper" [class.active]="active">
     <button
       class="bigOrgBtn"
-      [class.active]="activeOrgId === org.id"
+      [class.active]="active"
       [title]="org.name"
       (click)="filterWorkersByBigOrg(org.id)"
     >
       <img [src]="'assets/' + org.logo" [alt]="org.name" />
       <p>{{ org.name }}</p>
     </button>
-
-    <div class="open-close-container box-container" *ngIf="activeOrgId === org.id">
+    @if(active){
+    <div class="open-close-container box-container">
+      @for (worker of filteredWorkers(); track worker.id){
       <app-worker-card
-        *ngFor="let worker of filteredWorkers"
         [worker]="worker"
-        [orgs]="orgs"
+        [orgs]="orgs.value() ?? []"
         class="worker-card"
         #workerCard
-      ></app-worker-card>
-      <div *ngIf="filteredWorkers.length === 0" class="no-workers-message">
+      />
+      } @empty{
+      <div class="message">
         <p>ამჟამად ვერ მოიძებნა თანამშრომელი ამ კრიტერიუმით.</p>
         <button class="btn reset-btn" (click)="resetFilter()">ძიების გასუფთავება</button>
       </div>
+      }
     </div>
+    }
   </div>
+  }
 </section>
-
-<section class="org-filter" id="smallOrgs" *ngIf="showAll">
+} @else {
+<section class="org-filter" id="smallOrgs">
+  @for (org of orgs.value(); track org.id){
   <button
-    *ngFor="let org of orgs"
     class="smallOrgBtn"
-    [class.active]="activeOrgId === org.id"
+    [class.active]="activeOrgId() === org.id"
     [title]="org.name"
     (click)="filterWorkersByOrg(org.id)"
   >
     <img [src]="'assets/' + org.logo" [alt]="org.name" />
   </button>
+  }
 </section>
+}
 
-<section class="workers" [hidden]="isOrgOpen" [class.expanded]="showAll">
-  <h2 class="subtitle">თანამშრომლები</h2>
-  <div class="box-container workers-container" #workerContainer>
-    <app-worker-card
-      *ngFor="let worker of filteredWorkers"
-      [worker]="worker"
-      [orgs]="orgs"
-      class="worker-card"
-      #workerCard
-    ></app-worker-card>
-    <div *ngIf="filteredWorkers.length === 0" class="no-workers-message">
-      <p>ამჟამად ვერ მოიძებნა თანამშრომელი ამ კრიტერიუმით.</p>
-      <button class="btn reset-btn" (click)="resetFilter()">ძიების გასუფთავება</button>
+<section class="workers_section" [class.expanded]="activeOrgId() !== null">
+  @if (activeOrgId() !== null) {
+  <div class="worker_filters" [hidden]="isOrgOpen">
+    <h2 class="subtitle">დეპარტამენტი</h2>
+    <div class="box-container">
+      @for (dep of activeOrgDepartments(); track dep) {
+      <button
+        class="filterWorkersBtn"
+        [class.active]="activeOrgDep() === dep"
+        (click)="filterWorkersByDep(dep)"
+      >
+        {{ dep }}
+      </button>
+      }
     </div>
-    <div class="fade-overlay" *ngIf="showFade">
-      <button class="btn show-btn fa-solid fa-angle-down" (click)="toggleShowAll()"></button>
+  </div>
+  }
+  <div class="workers" [hidden]="isOrgOpen" [class.expanded]="showAll()">
+    <h2 class="subtitle">თანამშრომლები</h2>
+    <div class="box-container workers-container" #workerContainer>
+      @for (worker of filteredWorkers(); track worker.id){
+      <app-worker-card [worker]="worker" [orgs]="orgs.value() ?? []" class="worker-card" />
+      } @empty{
+      <div class="no-workers-message">
+        <p>ამჟამად ვერ მოიძებნა თანამშრომელი ამ კრიტერიუმით.</p>
+        <button class="btn reset-btn" (click)="resetFilter()">ძიების გასუფთავება</button>
+      </div>
+      } @if (showFade()){
+      <div class="fade-overlay">
+        <button class="btn show-btn fa-solid fa-angle-down" (click)="toggleShowAll()"></button>
+      </div>
+      }
     </div>
   </div>
 </section>

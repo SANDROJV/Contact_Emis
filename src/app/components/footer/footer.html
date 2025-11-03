@@ -1,69 +1,54 @@
 <footer class="footer">
   <div class="hotline-box">
+    @for (org of orgContacts; track org.name){
     <div class="hotline">
-      <img src="assets/mes.png" alt="icon" />
-      <p>ცხელი ხაზი:9100</p>
+      <img [src]="org.imgSrc" [alt]="org.name" />
+      <p>{{ org.phone }}</p>
     </div>
-    <div class="hotline">
-      <img src="assets/emis.png" alt="icon" />
-      <p>Eflow-ს ცხელი ხაზი: 5500</p>
-      <p>ტექნიკური დახმარება: 9300</p>
-      <p>მონაცემთა ბაზები: 9400</p>
-    </div>
-    <div class="hotline">
-      <img src="assets/esida.png" alt="icon" />
-      <p>ცხელი ხაზი: 2100</p>
-    </div>
-    <div class="hotline">
-      <img src="assets/eqe.png" alt="icon" />
-      <p>ცხელი ხაზი: 3599</p>
-    </div>
-    <div class="hotline">
-      <img src="assets/tpdc.png" alt="icon" />
-      <p>ცხელი ხაზი: 4710</p>
-    </div>
-    <div class="hotline">
-      <img src="assets/rustaveli.png" alt="icon" />
-      <p>ცხელი ხაზი: 4020</p>
-    </div>
-    <div class="hotline">
-      <img src="assets/mandat.png" alt="icon" />
-      <p>ცხელი ხაზი: 3335</p>
-    </div>
-    <div class="hotline">
-      <img src="assets/iec.png" alt="icon" />
-      <p>ცხელი ხაზი: 2800</p>
-    </div>
+    }
   </div>
 
   <section class="grid">
     <div class="box">
-        <i class="fa-solid fa-file-pen"></i> 
-        <p> ცნობარში არაზუსტი ინფორმაციის ან ხარვეზის აღმოჩენის შემთხვევაში 
-            დაგვიკავშირდით ცხელი ხაზინს ნომერზე: 9425, 
-            ან მოგვწერეთ მისამართზე: voip@emis.ge</p>
+      <i class="fa-solid fa-file-pen"></i>
+      <p>
+        ცნობარში არაზუსტი ინფორმაციის ან ხარვეზის აღმოჩენის შემთხვევაში დაგვიკავშირდით ცხელი ხაზინს
+        ნომერზე: <strong>9425</strong> , ან მოგვწერეთ მისამართზე: <strong>voip@emis.ge</strong> 
+      </p>
     </div>
 
     <div class="box">
-        <i class="fa-solid fa-user"></i>
-        <p>თუ გსურთ რომ სატელეფონო ცნობარში დაფიქსირდეს თქვენი სურათი, 
-            ან გსურთ რომ შეცვალოთ არსებული სურათი, 
-            მიყევით ინსტრუქციას ამ ბმულზე</p>
+      <i class="fa-solid fa-user"></i>
+      <p>
+        თუ გსურთ რომ სატელეფონო ცნობარში დაფიქსირდეს თქვენი სურათი, ან გსურთ რომ შეცვალოთ არსებული
+        სურათი, მიყევით ინსტრუქციას ამ ბმულზე
+      </p>
     </div>
 
     <div class="box">
-        <i class="fa-solid fa-square-phone"></i>
-        <p>ქალაქის ნომრებზე დარეკვისათვის აკრიფეთ: 
-            0 - აბონენტის ნომერი (მაგ. 02200220)
-            მობილურის ნომრებზე დარეკვისათვის აკრიფეთ:
-            00 - ოპერატორის კოდი - აბონენტის ნომერი (მაგ. 00577123456)
-            საქალაქთაშორისო ნომრებზე დარეკვისათვის აკრიფეთ:
-            00 - ქალაქის კოდი - აბონენტის ნომერი (მაგ. 00350123456)
-            საერთაშორისო ნომრებზე დარეკვისათვის აკრიფეთ:
-            000 - ქვეყნის კოდი - ქალაქის კოდი - აბონენტის ნომერი (მაგ. 000123454286282)
-        </p>
+      <i class="fa-solid fa-square-phone"></i>
+      <p>
+        <strong>ქალაქის ნომრებზე დარეკვისათვის აკრიფეთ:</strong> 0 - აბონენტის ნომერი (მაგ.
+        02200220) მობილურის
+      </p>
+      <p>
+        <strong>ნომრებზე დარეკვისათვის აკრიფეთ:</strong> 00 - ოპერატორის კოდი - აბონენტის ნომერი
+        (მაგ. 00577123456)
+      </p>
+      <p>
+        <<strong>საქალაქთაშორისო ნომრებზე დარეკვისათვის აკრიფეთ:</strong> 00 - ქალაქის კოდი -
+        აბონენტის ნომერი (მაგ.00350123456)/p>
+      </p>
+
+      <p>
+        <strong>საერთაშორისო ნომრებზე დარეკვისათვის აკრიფეთ:</strong> 000 - ქვეყნის კოდი - ქალაქის
+        კოდი - აბონენტის ნომერი (მაგ. 000123454286282)
+      </p>
     </div>
   </section>
 
-  <p class="credit">SJ 2025 ყველა უიფლება დაცულია. Designed & Powered by SJ</p>
+  <div class="credit">
+    <img src="../../../assets/footer_logo.png" alt="Logo" />
+    <p>SJ 2025 ყველა უიფლება დაცულია. Designed & Powered by SJ</p>
+  </div>
 </footer>
