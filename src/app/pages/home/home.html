@@ -1,4 +1,8 @@
+@if(activeOrgId()){ @for (org of orgs.value(); track org.id){ @if(org.id === activeOrgId()){
+<h1 class="title">{{ org.name }}</h1>
+} } } @else {
 <h1 class="title">ერთიანი სატელეფონო სისტემა</h1>
+}
 
 <section class="search-form">
   <div class="input-group">
@@ -84,7 +88,7 @@
       @for (worker of filteredWorkers(); track worker.id){
       <app-worker-card [worker]="worker" [orgs]="orgs.value() ?? []" class="worker-card" />
       } @empty{
-      <div class="no-workers-message">
+      <div class="message">
         <p>ამჟამად ვერ მოიძებნა თანამშრომელი ამ კრიტერიუმით.</p>
         <button class="btn reset-btn" (click)="resetFilter()">ძიების გასუფთავება</button>
       </div>

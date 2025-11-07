@@ -12,6 +12,11 @@
   font-family: 'Rajdhani', sans-serif;
 }
 
+.header a img {
+  width: 20rem;
+  margin-inline: 4%;
+}
+
 .header #theme-btn .fa-circle-half-stroke {
   font-size: 2.5rem;
   cursor: pointer;
@@ -21,9 +26,4 @@
 .header #theme-btn {
   background-color: transparent;
   margin-left: 1rem;
-}
-
-.header a img {
-  width: 20rem;
-  margin-inline: 4%;
 }

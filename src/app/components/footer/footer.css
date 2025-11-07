@@ -4,15 +4,19 @@
   width: 100%;
   padding: 3rem 6rem;
   height: 40%;
+  position: relative;
+  display: grid;
+  justify-content: center;
 }
 
 .footer .hotline-box {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
   font-size: 1rem;
+  gap: 1.5rem;
 }
 
-.footer .hotline-box img {
+.footer .hotline img {
   width: 3rem;
 }
 
@@ -22,20 +26,21 @@
   gap: 1.5rem;
   align-items: center;
   border-bottom: 1px solid var(--light-bg);
+  justify-content: center;
 }
 
 .footer .grid .box {
   display: grid;
-  justify-content: center;
-  align-items: center;
+  place-items: center;
 }
 
 .footer .grid .box p {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  max-width: 35rem;
 }
 
 .footer .grid .box i {
-  font-size: xx-large;
+  font-size: 3rem;
   margin-right: 0.75rem;
   color: var(--main-color);
 }

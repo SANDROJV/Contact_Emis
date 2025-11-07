@@ -26,7 +26,7 @@ export class Theme {
     const root = document.documentElement;
 
     if (this.darkMode) {
-      root.style.setProperty('--main-color', '#46038d');
+      root.style.setProperty('--main-color', '#7137af');
       root.style.setProperty('--black', '#e9e9e9');
       root.style.setProperty('--white', '#121212');
       root.style.setProperty('--gray', '#888');
@@ -35,7 +35,7 @@ export class Theme {
       root.style.setProperty('--box-shadow', '#000');
       root.style.setProperty('--box-shadow-Del', '#131313');
     } else {
-      root.style.setProperty('--main-color', '#190fa7');
+      root.style.setProperty('--main-color', '#3A73B8');
       root.style.setProperty('--black', '#161616');
       root.style.setProperty('--white', '#f2f2f2');
       root.style.setProperty('--gray', '#777');
